@@ -1,14 +1,14 @@
 <?php
 namespace App\Helpers;
-use firebase\JWT\JWT;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\Models\tblusers;
 use Exception;
 
 class JwtAuth{
     public $key;
-    public function __construc(){
-        $this->key='123456789';
+    public function __construct(){
+        $this->key='1234';
     }
     public function signup($email,$password,$getToken=null){
         $user=tblusers::where('email','=',$email)->where('password','=',$password)->first();
@@ -23,7 +23,7 @@ class JwtAuth{
             ];
             $jwt=JWT::encode($token,$this->key,'HS256');
             $decode=JWT::decode($jwt,$this->key,['HS256']);
-            if(!is_null($getToken)){
+            if(is_null($getToken)){
                 return $jwt;
             }else{
                 return $decode;
@@ -42,7 +42,7 @@ class JwtAuth{
         }catch(\DomainException $e){
             $auth=false;
         }
-        if(is_object($decoded) && isset($decoded)){
+        if(isset($decoded) && is_object($decoded) && isset($decoded->sub)){
             $auth=true;
         }else{
             $auth=false;

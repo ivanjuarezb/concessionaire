@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\tblusers;
+use App\Helpers\JwtAuth;
 
 class UserController extends Controller
 {
@@ -41,7 +42,23 @@ class UserController extends Controller
         return response()->json($data,$data['code']);
     }
     public function postLogin(Request $request){
-        return "FUNCTION LOGIN";
-        die();
+        $jwtAuth=new JwtAuth();
+        //Recibir POST
+        $json=$request->input('json',null);
+        $params=json_decode($json);
+        $email=(!is_null($json) && isset($params->email) ? $params->email : null);
+        $password=(!is_null($json) && isset($params->password) ? $params->password : null);
+        $getToken=(!is_null($json) && isset($params->getToken) ? $params->getToken : null);
+        //Cifrar contraseña
+        $pwd=hash('sha256',$password);
+        echo $getToken;
+        if(!is_null($email) && !is_null($password) && $getToken != 'true'){
+            $signup=$jwtAuth->signup($email,$pwd);
+        }elseif(!is_null($email) && !is_null($password) && $getToken == 'true'){
+            $signup=$jwtAuth->signup($email,$pwd,true);
+        }else{
+            $signup=['status'=>'error','code'=>400,'message'=>'Send your data by POST'];
+        }
+        return response()->json($signup);
     }
 }

@@ -51,7 +51,6 @@ class UserController extends Controller
         $getToken=(!is_null($json) && isset($params->getToken) ? $params->getToken : null);
         //Cifrar contraseña
         $pwd=hash('sha256',$password);
-        echo $getToken;
         if(!is_null($email) && !is_null($password) && $getToken != 'true'){
             $signup=$jwtAuth->signup($email,$pwd);
         }elseif(!is_null($email) && !is_null($password) && $getToken == 'true'){

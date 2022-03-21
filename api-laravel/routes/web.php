@@ -17,3 +17,7 @@ Route::post("/register",[UserController::class, "postRegister"]);
 Route::post("/login",[UserController::class, "postLogin"]);
 //---------------------------------------------------------------
 Route::get('/cars',[CarController::class,'getCars']);
+Route::post('/store',[CarController::class,'postStore']);
+Route::get('/show/{id}',[CarController::class,'getShow']);
+Route::put('/update/{id}',[CarController::class,'putUpdate']);
+Route::delete('/delete/{id}',[CarController::class,'deleteCar']);

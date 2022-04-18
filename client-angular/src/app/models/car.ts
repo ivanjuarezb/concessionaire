@@ -1,4 +1,4 @@
-export class car{
+export class Car{
     public id:number;
     public title:string;
     public description:string;

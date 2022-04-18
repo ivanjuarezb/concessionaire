@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     this._route=_route;
     this._router=_router;
     this._userService=_userService;    
-    this.user=new User(1,"ROLE_USER","","","","");
+    this.user=new User(1,"ROLE_USER","","","","",false);
     this.status='';
   }
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
         if(response.status=='success'){
           this.status=response.status;
           //vaciar formulario
-          this.user=new User(1,"ROLE_USER","","","","");
+          this.user=new User(1,"ROLE_USER","","","","",false);
           registerForm.reset();
         }else{
           this.status='error';

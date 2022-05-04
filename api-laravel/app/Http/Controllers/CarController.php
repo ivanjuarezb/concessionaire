@@ -56,8 +56,13 @@ class CarController extends Controller
         
     }
     public function getShow($id){
-        $car=tblcars::find($id)->load('user');
-        $data=['status'=>'success','code'=>200,'car'=>$car];
+        $car=tblcars::find($id);
+        if(!is_null($car) && is_object($car)){
+            $car=tblcars::find($id)->load('user');
+            $data=['status'=>'success','code'=>200,'car'=>$car];
+        }else{
+            $data=['status'=>'error','code'=>400,'message'=>"Car don't exist"];
+        }
         return response()->json($data,$data['code']);
     }
     public function putUpdate($id,Request $request){

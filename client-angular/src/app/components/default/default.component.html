@@ -13,15 +13,22 @@
         <table class="table table-light table-hover ">
             <thead>
                 <tr class="row border border-dark rounded-3">
-                    <th class="col-6">Nombre Vehículo</th>
+                    <th class="col-8" *ngIf="this.token == null">Nombre Vehículo</th>
+                    <th class="col-6" *ngIf="this.token != null">Nombre Vehículo</th>
                     <th class="col-2">Precio</th>
-                    <th class="col-4">Estado</th>
+                    <th class="col-4" *ngIf="this.token != null">Estado</th>
+                    <th class="col-2" *ngIf="this.token == null">Estado</th>
                 </tr>
             </thead>
             <tbody *ngFor="let car of carList">
                 <tr class="row border border-dark rounded-3">
-                    <th class="col-6">
-                        <a routerLink="/coche/{{car.id}}" style="text-decoration:none">
+                    <th class="col-6" *ngIf="this.token != null">
+                        <a routerLink="/coche/{{car.id}}"  class="text-dark">
+                            {{car.title}}
+                        </a>
+                    </th>
+                    <th class="col-8" *ngIf="this.token == null">
+                        <a routerLink="/coche/{{car.id}}"  class="text-dark">
                             {{car.title}}
                         </a>
                     </th>
@@ -36,14 +43,14 @@
                             No esta en venta
                         </span>
                     </td>
-                    <td class="col-1">
-                        <a routerLink="editar-coche/{{car.id}}">
+                    <td class="col-1" *ngIf="this.token != null">
+                        <a routerLink="/editar-coche/{{car.id}}">
                             <input type="button" value=" Editar " class="btn btn-warning"/>
                         </a>
                     </td>
-                    <td class="col-1">
+                    <td class="col-1" *ngIf="this.token != null">
                         <a routerLink="">
-                            <input type="button" value=" Borrar " class="btn btn-danger"/>
+                            <input (click)="deleteCar(car.id)" type="button" value=" Borrar " class="btn btn-danger"/>
                         </a>
                     </td>
                 </tr>

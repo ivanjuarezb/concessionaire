@@ -25,6 +25,15 @@ export class CarService {
     getCar(id:number):Observable<any>{
         return this._http.get(this.url+"show/"+id);
     }
+    update(token:string, car:Car, id:number):Observable<any>{
+        let params:string="json="+JSON.stringify(car);
+        let headers:HttpHeaders=new HttpHeaders().set("Authorization", token).set("content-type", "application/x-www-form-urlencoded");
+        return this._http.put(this.url+"update/"+id,params,{headers:headers});
+    }
+    delete(token:string, id:number):Observable<any>{
+        let headers:HttpHeaders=new HttpHeaders().set("Authorization", token).set("content-type", "application/x-www-form-urlencoded");
+        return this._http.delete(this.url+"delete/"+id,{headers:headers});
+    }
 
 }
 

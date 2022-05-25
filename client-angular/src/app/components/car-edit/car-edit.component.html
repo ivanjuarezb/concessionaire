@@ -1,1 +1,51 @@
-<p>car-edit works!</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-5">
+            <div class="display-5">
+                Editar vehículo
+            </div>
+            <div *ngIf="statusCar=='error'" class="alert alert-danger" >
+                La actualización del vehículo no se ha completado 
+            </div>
+            <div *ngIf="statusCar=='success'" class="alert alert-success" >
+                La actualiazación del vehículo se ha completado 
+            </div>
+            <form #carNew="ngForm" (ngSubmit)="onSubmit()">
+                <p>
+                    Título
+                    <input class="form-control" type="text" name="title" #title="ngModel" [(ngModel)]="carEdit.title" required/>
+                    <span *ngIf="!title.valid && title.touched">
+                        El título no es valido
+                    </span>
+                </p>
+                <p>
+                    Descripción 
+                    <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]="carEdit.description" required>
+                    </textarea>
+                    <span *ngIf="!description.valid && description.touched">
+                        La descripción no es valida
+                    </span>
+                </p>
+                <p>
+                    Precio
+                    <input type="number" class="form-control" name="price" #price="ngModel" [(ngModel)]="carEdit.price" required />
+                    <span *ngIf="!price.valid && price.touched">
+                        El precio no es valido
+                    </span>
+                </p>
+                <p>
+                    ¿A la venta?
+                    <select class="form-control" name="status" #status="ngModel" [(ngModel)]="carEdit.status" required>
+                        <option value="true">
+                            Sí
+                        </option>
+                        <option value="false">
+                            No
+                        </option>
+                    </select>
+                </p>
+                <input class="btn btn-primary" type="submit" value="Guardar" [disabled]="!carNew.form.valid"/>
+            </form>
+        </div>
+    </div>
+</div>

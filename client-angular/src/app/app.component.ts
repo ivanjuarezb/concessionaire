@@ -20,7 +20,6 @@ export class AppComponent implements OnInit, DoCheck{
       console.log('app.component cargado');
       this.token=this._userService.getToken();
       this.identity=JSON.parse(this._userService.getIdentity());
-      console.log(this.identity+' '+this.token);
   }
   ngDoCheck(): void {
     this.token=this._userService.getToken();

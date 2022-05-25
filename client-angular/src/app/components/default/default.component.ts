@@ -32,11 +32,28 @@ export class DefaultComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log('default.component cargado correctamente');
+    this.getCars();
+  }
+  getCars(){
     this._carService.getCars().subscribe(
       response=> {
         if(response.status=='success'){
           this.statusList='success';
           this.carList=response.cars;
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    );
+  }
+  deleteCar(id:number){
+    this._carService.delete(this.token, id).subscribe(
+      response=>{
+        if(response.status=="success"){
+          this.getCars();
+        }else{
+          console.log(response.message);
         }
       },
       error=>{

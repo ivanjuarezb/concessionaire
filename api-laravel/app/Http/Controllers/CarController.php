@@ -80,13 +80,14 @@ class CarController extends Controller
                 $validate=Validator::make($params_array,['title'=>'required','description'=>'required','status'=>'required','price'=>'required']);
                 $fails=$validate->fails();
                 if($fails==false){
-                    $car=tblcars::where('id','=',$id)->update($params_array);
+                    $update_params=['title'=>$params_array['title'], 'description'=>$params_array['description'], 'status'=>$params_array['status'], 'price'=>$params_array['price']];
+                    $car=tblcars::where('id','=',$id)->update($update_params);
                     $data=['status'=>'success','code'=>200,'car'=>$params];
                 }else{
                     $data=['status'=>'error','code'=>400,'message'=>$validate->errors()];
                 }
             }else{
-                $data=['status'=>'error','code'=>400,'message'=>'Send the data correctly by post'];
+                $data=['status'=>'error','code'=>400,'message'=>'Send the data correctly by method PUT'];
             }
         }else{
             $data=['status'=>'error','code'=>400,'message'=>'Incorret login'];

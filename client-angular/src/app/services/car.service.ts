@@ -9,10 +9,7 @@ export class CarService {
     public url:string;
     constructor(_http:HttpClient){
         this._http=_http;
-        this.url="http://concessionaire.devel/api-laravel/public/";
-    }
-    pruebas():string{
-        return "Prueba car.service.ts";
+        this.url="http://concessionaire.devel/";
     }
     create(car:Car,token:string):Observable<any>{
         let params:string="json="+JSON.stringify(car);

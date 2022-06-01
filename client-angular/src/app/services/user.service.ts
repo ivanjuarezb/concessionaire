@@ -11,7 +11,7 @@ export class UserService{
     public token:any;
     constructor(_http:HttpClient){
         this._http=_http;
-        this.url='http://concessionaire.devel/api-laravel/public/';
+        this.url='http://concessionaire.devel/';
     }
     pruebas(){
         return "Hello world";
